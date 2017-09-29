@@ -1,0 +1,28 @@
+name: jekyll
+version: git
+summary: Simple, blog aware, static site generator
+description: |
+  Jekyll is a simple, blog aware, static site generator. It takes a
+  template directory (representing the raw form of a website), runs it
+  through Textile or Markdown and Liquid converters, and spits out a
+  complete, static website suitable for serving with Apache or your
+  favorite web server.
+
+  This is also the engine behind GitHub Pages(http://pages.github.com),
+  which you can use to host your project's page or blog right here from
+  GitHub.
+grade: stable # must be 'stable' to release into candidate/stable channels
+confinement: strict # use 'strict' once you have the right plugs and slots
+
+apps:
+  jekyll:
+    command: bin/jekyll
+    plugs: ['network', 'network-bind', 'home']
+
+parts:
+  jekyll:
+    plugin: ruby
+    source: .
+    source-tag: v3.6.0
+    build: gem build jekyll.gemspec
+    install: gem install jekyll-*.gem --env-shebang --no-ri
